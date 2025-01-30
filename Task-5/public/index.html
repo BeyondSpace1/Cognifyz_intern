@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MongoDB CRUD Example</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+        button {
+            cursor: pointer;
+        }
+        #items-list {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>MongoDB CRUD Operations</h1>
+
+    <div>
+        <h2>Create Item</h2>
+        <form id="create-form">
+            <input type="text" id="item-name" placeholder="Enter item name" required>
+            <button type="submit">Add Item</button>
+        </form>
+    </div>
+
+    <div>
+        <h2>Items List</h2>
+        <ul id="items-list"></ul>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

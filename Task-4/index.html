@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client-side Routing and Validation</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans">
+
+<header class="bg-gray-800 text-white p-4 text-center">
+    <h1 class="text-2xl">Client-side Routing with Validation</h1>
+</header>
+
+<nav class="mt-4 text-center">
+    <a href="#home" onclick="navigate('home')" class="mx-4 text-gray-800 hover:text-blue-600">Home</a>
+    <a href="#about" onclick="navigate('about')" class="mx-4 text-gray-800 hover:text-blue-600">About</a>
+    <a href="#form" onclick="navigate('form')" class="mx-4 text-gray-800 hover:text-blue-600">Form</a>
+</nav>
+
+<div id="content" class="mt-6 px-6"></div>
+
+<script>
+    // 1. Form Validation - Password Strength
+    function validatePassword(password) {
+        const minLength = 8;
+        const upperCase = /[A-Z]/;
+        const specialChar = /[!@#$%^&*(),.?":{}|<>]/;
+        const number = /[0-9]/;
+
+        if (password.length < minLength) {
+            return 'Password must be at least 8 characters long.';
+        }
+        if (!upperCase.test(password)) {
+            return 'Password must include at least one uppercase letter.';
+        }
+        if (!specialChar.test(password)) {
+            return 'Password must include at least one special character.';
+        }
+        if (!number.test(password)) {
+            return 'Password must include at least one number.';
+        }
+        return 'Password is strong';
+    }
+
+    // 2. DOM Update for Password Strength
+    function handlePasswordInput() {
+        const password = document.getElementById('password').value;
+        const message = validatePassword(password);
+        const strengthDiv = document.getElementById('password-strength');
+        if (message === 'Password is strong') {
+            strengthDiv.style.color = 'green';
+        } else {
+            strengthDiv.style.color = 'red';
+        }
+        strengthDiv.innerText = message;
+    }
+
+    // 3. Toggle Password Visibility
+    function togglePasswordVisibility() {
+        const passwordField = document.getElementById('password');
+        const eyeIcon = document.getElementById('eye-icon');
+        if (passwordField.type === 'password') {
+            passwordField.type = 'text';
+            eyeIcon.src = 'https://img.icons8.com/ios-filled/50/000000/visible.png'; // Eye icon for visible
+        } else {
+            passwordField.type = 'password';
+            eyeIcon.src = 'https://img.icons8.com/ios-filled/50/000000/invisible.png'; // Eye icon for hidden
+        }
+    }
+
+    // 4. Client-side Routing - Navigation
+    const routes = {
+        home: '<h2 class="text-xl font-semibold">Welcome to the Home Page</h2>',
+        about: '<h2 class="text-xl font-semibold">About Us</h2><p>This is the about page content.</p>',
+        form: `
+            <h2 class="text-xl font-semibold mb-4">Password Validation Form</h2>
+            <div class="bg-white p-6 rounded-lg shadow-md">
+                <label for="username" class="block font-medium text-gray-700">Username</label>
+                <input type="text" id="username" class="mt-2 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your username">
+                
+                <label for="password" class="block font-medium text-gray-700 mt-4">Enter Password:</label>
+                <div class="relative">
+                    <input type="password" id="password" class="mt-2 p-2 w-full border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Enter your password" oninput="handlePasswordInput()">
+                    <img id="eye-icon" src="https://img.icons8.com/ios-filled/50/000000/invisible.png" alt="eye icon" class="absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer" onclick="togglePasswordVisibility()">
+                </div>
+                <div id="password-strength" class="mt-2 text-sm text-red-600"></div>
+            </div>
+        `
+    };
+
+    function navigate(page) {
+        window.location.hash = page;  // Update URL hash
+        document.getElementById('content').innerHTML = routes[page] || '<h2 class="text-xl font-semibold">Page not found</h2>';
+    }
+
+    // Load correct page on initial load based on URL hash
+    window.addEventListener('load', () => {
+        const page = window.location.hash.slice(1);
+        if (page) {
+            navigate(page);
+        } else {
+            navigate('home');
+        }
+    });
+
+</script>
+
+</body>
+</html>

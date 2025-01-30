@@ -1,0 +1,48 @@
+/* Neu-morphic CSS */
+body {
+  background-color: #e0e5ec;
+  font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.neumorphic-container {
+  width: 60%;
+  margin: 5% auto;
+  background: #e0e5ec;
+  border-radius: 15px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1), -5px -5px 15px rgba(255, 255, 255, 0.7);
+  padding: 30px;
+  text-align: center;
+}
+
+.neumorphic-btn {
+  background: #e0e5ec;
+  border: none;
+  outline: none;
+  padding: 15px 30px;
+  font-size: 16px;
+  border-radius: 10px;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.1), -5px -5px 15px rgba(255, 255, 255, 0.7);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.neumorphic-btn:hover {
+  box-shadow: inset 5px 5px 15px rgba(0, 0, 0, 0.2), inset -5px -5px 15px rgba(255, 255, 255, 0.6);
+}
+
+#photos {
+  margin-top: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.photo {
+  width: 250px;
+  height: 150px;
+  object-fit: cover;
+  border-radius: 10px;
+  margin: 10px;
+}
